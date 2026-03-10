@@ -1,41 +1,27 @@
-# Автоматический деплой tg-app/ на GitHub Pages
-# Запускается при каждом push в ветку main
+# Деплой tg-app/ на GitHub Pages через gh-pages ветку
+# Более надёжный метод для новых репозиториев
 
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
-  workflow_dispatch: # позволяет запустить вручную из GitHub UI
+  workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+  contents: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload tg-app as Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy tg-app/ to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: tg-app/   # публикуем только папку tg-app/
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./tg-app
+          publish_branch: gh-pages
