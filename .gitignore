@@ -1,0 +1,23 @@
+# Переменные окружения — никогда не коммитить!
+.env
+.env.local
+.env.*.local
+
+# Node.js
+node_modules/
+
+# Vite / сборка
+dist/
+.vite/
+
+# Редакторы
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db

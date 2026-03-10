@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lovable-Style Template</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#f0f4ff',
+              100: '#e0eaff',
+              200: '#c7d7fe',
+              300: '#a5b8fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          boxShadow: {
+            'card':   '0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04)',
+            'card-lg':'0 10px 25px -5px rgba(0,0,0,0.10), 0 4px 10px -5px rgba(0,0,0,0.06)',
+            'glow':   '0 0 40px rgba(99,102,241,0.25)',
+          },
+          backdropBlur: { xs: '4px' },
+          borderRadius: { '2xl': '1rem', '3xl': '1.5rem' },
+          animation: {
+            'fade-up':    'fadeUp 0.5s ease-out both',
+            'fade-in':    'fadeIn 0.4s ease-out both',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4,0,0.6,1) infinite',
+          },
+          keyframes: {
+            fadeUp:  { '0%': { opacity:'0', transform:'translateY(16px)' }, '100%': { opacity:'1', transform:'translateY(0)' } },
+            fadeIn:  { '0%': { opacity:'0' }, '100%': { opacity:'1' } },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* ---- Lovable utility classes ---- */
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Gradient button */
+    .btn-gradient {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      transition: all 0.2s ease;
+    }
+    .btn-gradient:hover {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(99,102,241,0.35);
+    }
+    .btn-gradient:active { transform: translateY(0); }
+
+    /* Glass card */
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .glass-dark {
+      background: rgba(15, 15, 30, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Card hover lift */
+    .card-hover {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px -8px rgba(0,0,0,0.12);
+    }
+
+    /* Subtle background mesh */
+    .mesh-bg {
+      background-color: #f8f9ff;
+      background-image:
+        radial-gradient(at 20% 20%, rgba(99,102,241,0.08) 0, transparent 50%),
+        radial-gradient(at 80% 80%, rgba(139,92,246,0.08) 0, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(6,182,212,0.05) 0, transparent 60%);
+    }
+
+    /* Stagger delay helpers */
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
+    .delay-400 { animation-delay: 400ms; }
+    .delay-500 { animation-delay: 500ms; }
+
+    /* Status badge */
+    .badge-new    { background: #dbeafe; color: #1d4ed8; }
+    .badge-hot    { background: #ffedd5; color: #c2410c; }
+    .badge-done   { background: #dcfce7; color: #15803d; }
+    .badge-skip   { background: #f3f4f6; color: #6b7280; }
+
+    /* Sidebar active link */
+    .nav-link.active, .nav-link:hover {
+      background: rgba(99,102,241,0.1);
+      color: #4f46e5;
+    }
+
+    /* Input focus */
+    .input-focus:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+  </style>
+</head>
+
+<body class="mesh-bg min-h-screen font-sans text-gray-800 antialiased">
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1: HERO / LANDING PAGE HEADER
+     Используй для посадочных страниц
+═══════════════════════════════════════════════ -->
+<section id="hero" class="relative overflow-hidden py-24 px-6">
+  <!-- Background blobs -->
+  <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-400 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-purple-400 opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass shadow-card text-sm font-medium text-brand-600 mb-6 animate-fade-in">
+      <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse-slow"></span>
+      Новый продукт · Март 2026
+    </div>
+
+    <!-- Headline -->
+    <h1 class="text-5xl sm:text-6xl font-bold leading-tight tracking-tight mb-6 animate-fade-up">
+      Находи клиентов<br />
+      <span class="gradient-text">быстрее конкурентов</span>
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-10 animate-fade-up delay-100">
+      Парсер лидов прямо в Telegram. Видишь заявку — пишешь первым. Без бирж, без комиссий, без конкурентов.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-3 justify-center animate-fade-up delay-200">
+      <button class="btn-gradient text-white px-8 py-3.5 rounded-2xl font-semibold text-base shadow-glow">
+        Попробовать бесплатно →
+      </button>
+      <button class="glass px-8 py-3.5 rounded-2xl font-semibold text-base text-gray-700 hover:bg-white/90 transition-all shadow-card">
+        Посмотреть демо
+      </button>
+    </div>
+
+    <!-- Social proof -->
+    <p class="mt-8 text-sm text-gray-400 animate-fade-in delay-300">
+      Уже <strong class="text-gray-600">2 847</strong> фрилансеров получают клиентов каждый день
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2: KPI / STATS CARDS
+     Используй для дашбордов
+═══════════════════════════════════════════════ -->
+<section id="stats" class="max-w-6xl mx-auto px-6 pb-16">
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+    <!-- Stat Card 1 -->
+    <div class="bg-white rounded-2xl p-5 shadow-card card-hover animate-fade-up delay-100">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Лидов сегодня</span>
+        <span class="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500 text-base">📡</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900 mb-1">47</div>
+      <div class="flex items-center gap-1 text-xs text-green-500 font-medium">
+        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"/></svg>
+        +12% за неделю
+      </div>
+    </div>
+
+    <!-- Stat Card 2 -->
+    <div class="bg-white rounded-2xl p-5 shadow-card card-hover animate-fade-up delay-200">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Написали</span>
+        <span class="w-8 h-8 rounded-xl bg-green-50 flex items-center justify-center text-green-500 text-base">💬</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900 mb-1">18</div>
+      <div class="flex items-center gap-1 text-xs text-green-500 font-medium">
+        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"/></svg>
+        38% конверсия
+      </div>
+    </div>
+
+    <!-- Stat Card 3 -->
+    <div class="bg-white rounded-2xl p-5 shadow-card card-hover animate-fade-up delay-300">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">В переговорах</span>
+        <span class="w-8 h-8 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500 text-base">🔥</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900 mb-1">5</div>
+      <div class="flex items-center gap-1 text-xs text-orange-500 font-medium">
+        ← 2 горячих сегодня
+      </div>
+    </div>
+
+    <!-- Stat Card 4 -->
+    <div class="bg-white rounded-2xl p-5 shadow-card card-hover animate-fade-up delay-400">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-medium text-gray-400 uppercase tracking-wide">Конверсия</span>
+        <span class="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-500 text-base">📈</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900 mb-1">11%</div>
+      <div class="flex items-center gap-1 text-xs text-gray-400 font-medium">
+        5 сделок этот месяц
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3: LEAD FEED / TABLE
+     Лента лидов — ключевой компонент
+═══════════════════════════════════════════════ -->
+<section id="leads" class="max-w-6xl mx-auto px-6 pb-16">
+  <!-- Section header -->
+  <div class="flex items-center justify-between mb-5">
+    <div>
+      <h2 class="text-xl font-bold text-gray-900">Лента лидов</h2>
+      <p class="text-sm text-gray-400">Обновлено 2 минуты назад</p>
+    </div>
+    <!-- Filter chips -->
+    <div class="hidden sm:flex items-center gap-2">
+      <button class="px-3 py-1.5 rounded-xl text-xs font-medium bg-brand-600 text-white shadow-sm">Все</button>
+      <button class="px-3 py-1.5 rounded-xl text-xs font-medium text-gray-500 hover:bg-gray-100 transition-colors">Telegram</button>
+      <button class="px-3 py-1.5 rounded-xl text-xs font-medium text-gray-500 hover:bg-gray-100 transition-colors">VK</button>
+      <button class="px-3 py-1.5 rounded-xl text-xs font-medium text-gray-500 hover:bg-gray-100 transition-colors">Форумы</button>
+    </div>
+  </div>
+
+  <!-- Lead cards -->
+  <div class="space-y-3">
+
+    <!-- Lead Card 1 — NEW + HOT -->
+    <div class="bg-white rounded-2xl p-4 shadow-card card-hover animate-fade-up border-l-4 border-brand-500">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-start gap-3 flex-1 min-w-0">
+          <!-- Avatar -->
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+            МК
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="font-semibold text-gray-900 text-sm">@maxim_karpov</span>
+              <span class="badge-new text-xs px-2 py-0.5 rounded-full font-medium">Новый</span>
+              <span class="badge-hot text-xs px-2 py-0.5 rounded-full font-medium">🔥 Горячий</span>
+              <!-- Platform icon -->
+              <span class="flex items-center gap-1 text-xs text-[#2AABEE] font-medium">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.88 13.47l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.838.95l-.53-.861z"/></svg>
+                Telegram
+              </span>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-2">
+              Ищу разработчика для создания CRM-системы для малого бизнеса. Бюджет 80–150к. Нужно быстро, есть ТЗ.
+            </p>
+            <div class="flex items-center gap-3 text-xs text-gray-400">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                5 минут назад
+              </span>
+              <span class="px-2 py-0.5 bg-gray-100 rounded-full text-gray-500">CRM</span>
+              <span class="px-2 py-0.5 bg-gray-100 rounded-full text-gray-500">разработка</span>
+            </div>
+          </div>
+        </div>
+        <!-- Actions -->
+        <div class="flex flex-col items-end gap-2 flex-shrink-0">
+          <button class="btn-gradient text-white text-xs px-3 py-1.5 rounded-xl font-medium whitespace-nowrap">
+            Написать →
+          </button>
+          <button class="text-gray-300 hover:text-orange-400 transition-colors text-lg">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lead Card 2 — NEW -->
+    <div class="bg-white rounded-2xl p-4 shadow-card card-hover animate-fade-up delay-100">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-start gap-3 flex-1 min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+            АС
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="font-semibold text-gray-900 text-sm">@anna_savchuk</span>
+              <span class="badge-new text-xs px-2 py-0.5 rounded-full font-medium">Новый</span>
+              <span class="flex items-center gap-1 text-xs font-medium" style="color:#4C75A3">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.525-2.049-1.714-1.033-1.01-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.562c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4 8.925 4 8.502c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.678.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.151-3.574 2.151-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/></svg>
+                ВКонтакте
+              </span>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-2">
+              Нужен SMM-специалист для интернет-магазина одежды. Бюджет 30к/мес, контент + таргет. Официальное ИП.
+            </p>
+            <div class="flex items-center gap-3 text-xs text-gray-400">
+              <span class="flex items-center gap-1">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                23 минуты назад
+              </span>
+              <span class="px-2 py-0.5 bg-gray-100 rounded-full text-gray-500">SMM</span>
+              <span class="px-2 py-0.5 bg-gray-100 rounded-full text-gray-500">таргет</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-end gap-2 flex-shrink-0">
+          <button class="btn-gradient text-white text-xs px-3 py-1.5 rounded-xl font-medium whitespace-nowrap">
+            Написать →
+          </button>
+          <button class="text-gray-300 hover:text-orange-400 transition-colors text-lg">♡</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lead Card 3 — CONTACTED -->
+    <div class="bg-gray-50 rounded-2xl p-4 shadow-card card-hover opacity-80 animate-fade-up delay-200">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-start gap-3 flex-1 min-w-0">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+            ДИ
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="font-semibold text-gray-700 text-sm">@dmitry_ivanov</span>
+              <span class="badge-done text-xs px-2 py-0.5 rounded-full font-medium">✓ Написали</span>
+            </div>
+            <p class="text-sm text-gray-400 leading-relaxed line-clamp-2 mb-2">
+              Нужен дизайнер логотипа для кофейни. Срок неделя, бюджет обсуждается.
+            </p>
+            <div class="flex items-center gap-3 text-xs text-gray-400">
+              <span>2 часа назад</span>
+              <span class="px-2 py-0.5 bg-gray-200 rounded-full">дизайн</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-end gap-2 flex-shrink-0">
+          <button class="border border-gray-200 text-gray-400 text-xs px-3 py-1.5 rounded-xl font-medium whitespace-nowrap hover:border-brand-400 hover:text-brand-600 transition-colors">
+            Открыть
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Load more -->
+  <button class="w-full mt-4 py-3 text-sm text-gray-400 hover:text-brand-600 transition-colors font-medium">
+    Загрузить ещё 20 лидов ↓
+  </button>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 4: FEATURE CARDS (3-column)
+     Преимущества / фичи продукта
+═══════════════════════════════════════════════ -->
+<section id="features" class="max-w-6xl mx-auto px-6 pb-20">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Почему выбирают нас</h2>
+    <p class="text-gray-400 max-w-lg mx-auto">Пока конкуренты смотрят биржи — ты уже общаешься с клиентом</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+
+    <div class="bg-white rounded-3xl p-7 shadow-card card-hover animate-fade-up delay-100">
+      <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-2xl mb-5">⚡</div>
+      <h3 class="font-bold text-gray-900 text-lg mb-2">Первым узнаёшь</h3>
+      <p class="text-gray-500 text-sm leading-relaxed">
+        Лид появляется у тебя через 10–30 секунд после публикации. На биржах — конкуренция из 50 откликов. Здесь — только ты.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-3xl p-7 shadow-card card-hover animate-fade-up delay-200">
+      <div class="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-2xl mb-5">🎯</div>
+      <h3 class="font-bold text-gray-900 text-lg mb-2">Прямой контакт</h3>
+      <p class="text-gray-500 text-sm leading-relaxed">
+        Нажал "Написать" — открылся чат с клиентом. Без посредников, без комиссий, без регистрации на бирже.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-3xl p-7 shadow-card card-hover animate-fade-up delay-300">
+      <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center text-2xl mb-5">🤖</div>
+      <h3 class="font-bold text-gray-900 text-lg mb-2">AI-фильтрация</h3>
+      <p class="text-gray-500 text-sm leading-relaxed">
+        Система отсекает любопытных, ботов и спам. Ты видишь только тех, кто написал «ищу», «нужен», «куплю».
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 5: PRICING CARDS
+     Тарифы
+═══════════════════════════════════════════════ -->
+<section id="pricing" class="max-w-5xl mx-auto px-6 pb-20">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-gray-900 mb-3">Простые тарифы</h2>
+    <p class="text-gray-400">Начни бесплатно — платишь только когда видишь результат</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+
+    <!-- Free -->
+    <div class="bg-white rounded-3xl p-7 shadow-card flex flex-col animate-fade-up delay-100">
+      <div class="mb-6">
+        <div class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-1">Бесплатно</div>
+        <div class="text-4xl font-bold text-gray-900">0 ₽</div>
+        <div class="text-sm text-gray-400 mt-1">навсегда</div>
+      </div>
+      <ul class="space-y-3 mb-8 flex-1">
+        <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 5 лидов в день</li>
+        <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> 2 источника</li>
+        <li class="flex items-center gap-2 text-sm text-gray-400"><span class="text-gray-300">✗</span> Шаблоны ответов</li>
+        <li class="flex items-center gap-2 text-sm text-gray-400"><span class="text-gray-300">✗</span> История лидов</li>
+      </ul>
+      <button class="w-full py-3 rounded-2xl border border-gray-200 text-gray-700 font-semibold text-sm hover:border-brand-400 hover:text-brand-600 transition-colors">
+        Начать бесплатно
+      </button>
+    </div>
+
+    <!-- Pro — highlighted -->
+    <div class="rounded-3xl p-7 shadow-glow flex flex-col relative overflow-hidden animate-fade-up delay-200"
+         style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
+      <div class="absolute top-4 right-4 bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full">
+        Популярный
+      </div>
+      <div class="mb-6">
+        <div class="text-sm font-semibold text-white/70 uppercase tracking-wide mb-1">Pro</div>
+        <div class="text-4xl font-bold text-white">199 ₽</div>
+        <div class="text-sm text-white/60 mt-1">в месяц</div>
+      </div>
+      <ul class="space-y-3 mb-8 flex-1">
+        <li class="flex items-center gap-2 text-sm text-white"><span class="text-white/80">✓</span> Безлимит лидов</li>
+        <li class="flex items-center gap-2 text-sm text-white"><span class="text-white/80">✓</span> Все источники (TG+VK+форумы)</li>
+        <li class="flex items-center gap-2 text-sm text-white"><span class="text-white/80">✓</span> Шаблоны с переменными</li>
+        <li class="flex items-center gap-2 text-sm text-white"><span class="text-white/80">✓</span> История + статусы</li>
+        <li class="flex items-center gap-2 text-sm text-white"><span class="text-white/80">✓</span> Аналитика</li>
+      </ul>
+      <button class="w-full py-3 rounded-2xl bg-white text-brand-600 font-bold text-sm hover:bg-white/90 transition-all shadow-lg">
+        Подключить Pro →
+      </button>
+    </div>
+
+    <!-- Business -->
+    <div class="bg-white rounded-3xl p-7 shadow-card flex flex-col animate-fade-up delay-300">
+      <div class="mb-6">
+        <div class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-1">Агентство</div>
+        <div class="text-4xl font-bold text-gray-900">799 ₽</div>
+        <div class="text-sm text-gray-400 mt-1">в месяц</div>
+      </div>
+      <ul class="space-y-3 mb-8 flex-1">
+        <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> Всё из Pro</li>
+        <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> До 5 специалистов</li>
+        <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> AI-персонализация</li>
+        <li class="flex items-center gap-2 text-sm text-gray-600"><span class="text-green-500">✓</span> Приоритетная поддержка</li>
+      </ul>
+      <button class="w-full py-3 rounded-2xl border border-gray-200 text-gray-700 font-semibold text-sm hover:border-brand-400 hover:text-brand-600 transition-colors">
+        Связаться
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 6: CTA BANNER (glassmorphism)
+     Призыв к действию внизу страницы
+═══════════════════════════════════════════════ -->
+<section class="max-w-6xl mx-auto px-6 pb-20">
+  <div class="relative overflow-hidden rounded-3xl p-12 text-center"
+       style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 60%, #06b6d4 100%);">
+    <!-- Decorative circles -->
+    <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white opacity-10"></div>
+    <div class="absolute -bottom-12 -left-12 w-40 h-40 rounded-full bg-white opacity-10"></div>
+
+    <div class="relative z-10">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Попробуй прямо сейчас
+      </h2>
+      <p class="text-white/70 text-lg mb-8 max-w-xl mx-auto">
+        5 бесплатных лидов каждый день. Карта не нужна. Настройка за 2 минуты.
+      </p>
+      <button class="bg-white text-brand-600 px-10 py-4 rounded-2xl font-bold text-base hover:bg-white/90 transition-all shadow-lg hover:-translate-y-0.5 transform">
+        Открыть в Telegram →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 7: FOOTER
+═══════════════════════════════════════════════ -->
+<footer class="border-t border-gray-100 bg-white">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 rounded-lg btn-gradient flex items-center justify-center text-white text-xs font-bold">L</div>
+      <span class="font-semibold text-gray-800">LeadFinder</span>
+    </div>
+    <p class="text-sm text-gray-400">© 2026 LeadFinder · Сделано с ♥ для фрилансеров</p>
+    <div class="flex items-center gap-4 text-sm text-gray-400">
+      <a href="#" class="hover:text-gray-600 transition-colors">Политика</a>
+      <a href="#" class="hover:text-gray-600 transition-colors">Telegram</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT — минимальный интерактив
+═══════════════════════════════════════════════ -->
+<script>
+  // Animate elements on scroll (Intersection Observer)
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.style.opacity = '1';
+        el.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate-fade-up').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // Filter chip active state
+  document.querySelectorAll('#leads button[class*="px-3"]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('#leads button[class*="px-3"]').forEach(b => {
+        b.className = b.className
+          .replace('bg-brand-600 text-white', '')
+          .replace('text-gray-500', '') + ' text-gray-500 hover:bg-gray-100 transition-colors';
+      });
+      this.className = this.className.replace('text-gray-500 hover:bg-gray-100 transition-colors', '') + ' bg-brand-600 text-white';
+    });
+  });
+
+  // Heart button toggle
+  document.querySelectorAll('button.text-gray-300').forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (this.textContent.trim() === '♡') {
+        this.textContent = '♥';
+        this.className = this.className.replace('text-gray-300 hover:text-orange-400', 'text-orange-400');
+      } else {
+        this.textContent = '♡';
+        this.className = this.className.replace('text-orange-400', 'text-gray-300 hover:text-orange-400');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
