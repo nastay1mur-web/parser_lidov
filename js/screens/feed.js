@@ -246,6 +246,10 @@ function createFeed() {
     Router.push(() => createSettings());
   });
 
+  // ── Обновить ленту при сохранении настроек ────────────────
+  const onSettingsSaved = () => renderLeads();
+  window.addEventListener('settings-saved', onSettingsSaved);
+
   // ── Первая отрисовка: скелетон → данные ───────────────────
   if (!loaded) {
     renderSkeleton();
@@ -256,7 +260,7 @@ function createFeed() {
 
   return {
     element: el,
-    destroy: null,
+    destroy: () => window.removeEventListener('settings-saved', onSettingsSaved),
   };
 }
 
