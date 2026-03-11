@@ -235,6 +235,7 @@ function createSettings() {
       TG.haptic.success();
       AppSettings.save(draft);
       showToast('✓ Настройки сохранены');
+      window.dispatchEvent(new CustomEvent('settings-saved'));
       setTimeout(() => Router.pop(), 300);
     });
   }
