@@ -47,6 +47,7 @@ const MOCK_LEADS = [
     sourceChat: '@freelance_ru',
     url: 'https://t.me/freelance_ru',
     keyword: 'ищу разработчика',
+    specialty: 'dev',
     message: 'Ищу разработчика для создания CRM-системы для малого бизнеса. Бюджет 80–150к. Нужно быстро, есть подробное ТЗ. Стек: Python + React или что предложите. Пишите в личку, готов обсудить детали.',
     status: 'new',
     isHot: false,
@@ -61,6 +62,7 @@ const MOCK_LEADS = [
     sourceChat: 'vk.com/freelance',
     url: 'https://vk.com/freelance',
     keyword: 'нужен SMM',
+    specialty: 'smm',
     message: 'Нужен SMM-специалист для интернет-магазина одежды. ВК + Телеграм канал. 30к/мес, частичная занятость. Контент-план, stories, посты 1 раз в день. Жду предложения с портфолио.',
     status: 'new',
     isHot: false,
@@ -75,6 +77,7 @@ const MOCK_LEADS = [
     sourceChat: '@web_freelance',
     url: 'https://t.me/web_freelance',
     keyword: 'нужен дизайнер',
+    specialty: 'design',
     message: 'Нужен UI/UX дизайнер для редизайна корпоративного сайта. Примерно 15–20 страниц, Figma, есть брендбук. Бюджет обсуждается, ориентир 60–100к. Хочу видеть сайты сделанные вами.',
     status: 'new',
     isHot: true,
@@ -89,6 +92,7 @@ const MOCK_LEADS = [
     sourceChat: 'vk.com/business_freelance',
     url: 'https://vk.com/business_freelance',
     keyword: 'нужен копирайтер',
+    specialty: 'copy',
     message: 'Ищу копирайтера для написания карточек товаров на Wildberries и Ozon. Примерно 200 карточек, SEO-оптимизация. Готова платить 80–120р за карточку. Тестовое задание — 5 карточек.',
     status: 'viewed',
     isHot: false,
@@ -103,6 +107,7 @@ const MOCK_LEADS = [
     sourceChat: 'vc.ru',
     url: 'https://vc.ru/freelance',
     keyword: 'frontend разработчик',
+    specialty: 'dev',
     message: 'Стартап ищет frontend-разработчика (React/Next.js) на фриланс, проект ~3 месяца. Задача: лендинг + личный кабинет с Dashboard. Бюджет 150к. Командная работа через Notion + GitHub.',
     status: 'new',
     isHot: false,
@@ -117,6 +122,7 @@ const MOCK_LEADS = [
     sourceChat: '@smm_work',
     url: 'https://t.me/smm_work',
     keyword: 'нужен SMM',
+    specialty: 'smm',
     message: 'Привет! Ищу SMM для небольшой кофейни в Москве. Инстаграм + ВК + Телеграм. Нужно вести аккаунты, снимать reels, делать тексты. Бюджет 25–35к/мес + оплата фотографа.',
     status: 'new',
     isHot: false,
@@ -131,6 +137,7 @@ const MOCK_LEADS = [
     sourceChat: '@devjobs_ru',
     url: 'https://t.me/devjobs_ru',
     keyword: 'fullstack разработчик',
+    specialty: 'dev',
     message: 'Ищу fullstack-разработчика для MVP мобильного приложения. React Native + Node.js + PostgreSQL. Бюджет 200–300к. Есть инвестиции, команда 4 человека. Готов к долгосрочному сотрудничеству.',
     status: 'contacted',
     isHot: true,
@@ -145,6 +152,7 @@ const MOCK_LEADS = [
     sourceChat: 'vk.com/marketing_jobs',
     url: 'https://vk.com/marketing_jobs',
     keyword: 'нужен маркетолог',
+    specialty: 'market',
     message: 'Digital-агентство ищет маркетолога на аутсорс для клиента (ниша: образование). Задачи: контекстная реклама Яндекс + ВКонтакте, ведение кабинетов. 60к/мес, 20 часов в неделю.',
     status: 'new',
     isHot: false,
@@ -159,6 +167,7 @@ const MOCK_LEADS = [
     sourceChat: '@flutter_jobs',
     url: 'https://t.me/flutter_jobs',
     keyword: 'Flutter разработчик',
+    specialty: 'dev',
     message: 'Нужен Flutter-разработчик для мобильного приложения доставки еды. Дизайн готов, API готово. Нужно собрать приложение для iOS + Android. Бюджет 120–180к, срок 6 недель.',
     status: 'new',
     isHot: false,
@@ -173,11 +182,58 @@ const MOCK_LEADS = [
     sourceChat: 'tlgg.ru',
     url: 'https://tlgg.ru',
     keyword: 'нужен дизайнер',
+    specialty: 'design',
     message: 'Коуч, ищу дизайнера для оформления онлайн-курса и продающего лендинга. Нужно: слайды в Canva/Figma (50 шт) + лендинг на Tilda. Бюджет 40–60к. Работаем быстро, дедлайн 2 недели.',
     status: 'new',
     isHot: false,
     note: '',
     createdAt: new Date(Date.now() - 8 * 3600_000).toISOString(),
+  },
+  // Лиды для фотографов/видеографов
+  {
+    id: '11',
+    name: 'Виктория Рест',
+    username: 'vika_restaurant_msk',
+    source: 'telegram',
+    sourceChat: '@photo_jobs_ru',
+    url: 'https://t.me/photo_jobs_ru',
+    keyword: 'нужен фотограф',
+    specialty: 'photo',
+    message: 'Нужен фотограф для съёмки блюд ресторана. Примерно 50–70 позиций меню, нужны красивые фото для сайта и Instagram. Бюджет 15–25к за день съёмки. Студия есть, реквизит обсудим.',
+    status: 'new',
+    isHot: true,
+    note: '',
+    createdAt: new Date(Date.now() - 18 * 60_000).toISOString(),
+  },
+  {
+    id: '12',
+    name: 'Игорь Свадьба',
+    username: 'igor_wedding_event',
+    source: 'vk',
+    sourceChat: 'vk.com/wedding_photo',
+    url: 'https://vk.com/wedding_photo',
+    keyword: 'ищу видеографа',
+    specialty: 'photo',
+    message: 'Ищем видеографа на свадьбу 15 июня в Подмосковье. Нужно: съёмка 8–10 часов, монтаж highlight 3–5 мин + полный ролик до 30 мин. Бюджет 40–60к. Портфолио обязательно, желательно с отзывами.',
+    status: 'new',
+    isHot: false,
+    note: '',
+    createdAt: new Date(Date.now() - 55 * 60_000).toISOString(),
+  },
+  {
+    id: '13',
+    name: 'Белла Бьюти',
+    username: 'bella_beauty_spb',
+    source: 'telegram',
+    sourceChat: '@freelance_photo',
+    url: 'https://t.me/freelance_photo',
+    keyword: 'нужен фотограф',
+    specialty: 'photo',
+    message: 'Студия красоты в СПб ищет фотографа на регулярную съёмку. Раз в месяц: интерьер + работы мастеров + контент для соцсетей. Бюджет 8–12к/съёмка. Хочу долгосрочное сотрудничество.',
+    status: 'new',
+    isHot: false,
+    note: '',
+    createdAt: new Date(Date.now() - 2.5 * 3600_000).toISOString(),
   },
 ];
 
@@ -222,7 +278,14 @@ const SPECIALTIES = [
 function loadLeads() {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.LEADS);
-    return raw ? JSON.parse(raw) : [...MOCK_LEADS];
+    if (!raw) return [...MOCK_LEADS];
+    const saved = JSON.parse(raw);
+    // Миграция: если у сохранённых лидов нет поля specialty — сбрасываем на мок-данные
+    if (saved.length > 0 && !saved[0].specialty) {
+      localStorage.removeItem(STORAGE_KEYS.LEADS);
+      return [...MOCK_LEADS];
+    }
+    return saved;
   } catch (_) {
     return [...MOCK_LEADS];
   }
@@ -310,11 +373,18 @@ const AppData = {
     return this.leads.find(l => l.id === id);
   },
 
-  // Получить отфильтрованные лиды
+  // Получить отфильтрованные лиды (по источнику + по специальностям из настроек)
   getFiltered(source = 'all') {
-    const base = source === 'all'
+    let base = source === 'all'
       ? this.leads
       : this.leads.filter(l => l.source === source);
+
+    // Фильтр по специальностям (если пользователь выбрал при онбординге)
+    const settings = loadSettings();
+    if (settings.specialties && settings.specialties.length > 0) {
+      base = base.filter(l => settings.specialties.includes(l.specialty));
+    }
+
     return [...base].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   },
 
