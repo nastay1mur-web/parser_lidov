@@ -240,7 +240,6 @@ function createSettings() {
   }
 
   render();
-  bindEvents();
 
   return {
     element: el,
